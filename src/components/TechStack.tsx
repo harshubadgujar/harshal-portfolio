@@ -13,19 +13,30 @@ import {
 
 const textureLoader = new THREE.TextureLoader();
 const imageUrls = [
-  "/images/react2.webp",
-  "/images/next2.webp",
-  "/images/node2.webp",
-  "/images/mongo.webp",
-  "/images/ai_texture.png",
-  "/images/automation_texture.png",
+  "/images/react2.webp",       // React
+  "/images/next2.webp",        // Next.js
+  "/images/node2.webp",        // Node.js
+  "/images/express.webp",      // Express.js
+  "/images/mongo.webp",        // MongoDB
+  "/images/mysql.webp",        // MySQL
+  "/images/javascript.webp",   // JavaScript
+  "/images/typescript.webp",   // TypeScript
+  "/images/tailwind.png",      // Tailwind CSS
+  "/images/git.png",           // Git
+  "/images/github.png",        // GitHub
+  "/images/postman.png",       // Postman
+  "/images/docker.png",        // Docker
+  "/images/vercel.png",        // Vercel
+  "/images/railway.png",       // Railway
+  "/images/java.png",          // Java
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
-const spheres = [...Array(30)].map(() => ({
-  scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
+const spheres = [...Array(16)].map((_,i) => ({
+  scale: [0.7, 0.85, 0.8, 0.9, 0.75][i % 5],
+  textureIndex: i,
 }));
 
 type SphereProps = {
@@ -67,7 +78,7 @@ function SphereGeo({
       linearDamping={0.75}
       angularDamping={0.15}
       friction={0.2}
-      position={[r(20), r(20) - 25, r(20) - 10]}
+      position={[r(25), r(20) - 25, r(25) - 10]}
       ref={api}
       colliders={false}
     >
@@ -182,7 +193,7 @@ const TechStack = () => {
           angle={0.2}
           color="white"
           castShadow
-          shadow-mapSize={[512, 512]}
+          shadow-mapSize={[256, 256]}
         />
         <directionalLight position={[0, 5, -4]} intensity={2} />
         <Physics gravity={[0, 0, 0]}>
@@ -191,7 +202,7 @@ const TechStack = () => {
             <SphereGeo
               key={i}
               {...props}
-              material={materials[Math.floor(Math.random() * materials.length)]}
+              material={materials[props.textureIndex]}
               isActive={isActive}
             />
           ))}
